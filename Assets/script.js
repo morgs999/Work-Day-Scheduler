@@ -4,7 +4,7 @@ $(function () {
   function displayTime() {
     let rightNow = dayjs().format('MMM DD, YYYY [at] hh:mm:ss a');
     timeDisplayEl.text(rightNow);
-  }
+  };
 
   // BLUE SAVE BUTTON FUNCTIONALITY //
   let saveBtn = $('.saveBtn');
@@ -14,40 +14,31 @@ $(function () {
     localStorage.setItem(hour, value);
   });
 
-  // $("#hour-9 .description").val(localStorage.getItem("hour-9"));
-  // $("#hour-10 .description").val(localStorage.getItem("hour-10"));
-  // $("#hour-11 .description").val(localStorage.getItem("hour-11"));
-  // $("#hour-12 .description").val(localStorage.getItem("hour-12"));
-  // $("#hour-13 .description").val(localStorage.getItem("hour-13"));
-  // $("#hour-14 .description").val(localStorage.getItem("hour-14"));
-  // $("#hour-15 .description").val(localStorage.getItem("hour-15"));
-  // $("#hour-16 .description").val(localStorage.getItem("hour-16"));
-  // $("#hour-17 .description").val(localStorage.getItem("hour-17"));
-
+  // ITEMS SAVED ON TODO LIST FROM LOCAL STORAGE //
   function textBlocks() {
     $(".description").each(function () {
-      let timeBlock = (this.id);
-      $(this).val(localStorage.getItem("value"));
-      
-    })
-  }
+      let timeBlock = $(this).parent().attr('id');
+      const value = localStorage.getItem(timeBlock);
+      $(this).val(value);
+    });
+  };
 
   // PAST, PRESENT, FUTURE COLOR CODING //
   function colorIn() {
     // can use dayjs('2020-01-01 12:00:00') to check colors
-    let currentHour = dayjs('2020-01-01 12:00:00').hour();
+    let hour = dayjs().hour();
     $(".time-block").each(function () {
       let timeBlock = (this.id);
 
-      if (currentHour > timeBlock) {
+      if (hour > timeBlock) {
         $(this).addClass('past');
-      } else if (currentHour == timeBlock) {
+      } else if (hour == timeBlock) {
         $(this).addClass('present')
       } else {
         $(this).addClass('future');
-      }
-    })
-  }
+      };
+    });
+  };
 
   // FUNCTIONS RUNNING //
   displayTime();
